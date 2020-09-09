@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyi.dao.UserMapper">
+
+    <!-- 1 to N
+            collection :
+                property : 当前实体中对多的属性名称
+                ofType ：对应的java对象
+    -->
+    <resultMap id="userMap" type="user">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+
+        <collection property="orderList" ofType="order">
+            <id column="order_id" property="id"></id>
+            <id column="order_no" property="orderNo"></id>
+            <id column="price" property="price"></id>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="userMap">
+        select u.*,o.id order_id,o.order_no,o.price from `user` u left join `order` o on u.id = o.user
+    </select>
+
+    <!-- N to N -->
+    <resultMap id="userRole" type="user">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+
+        <collection property="roleList" ofType="role">
+            <id column="rid" property="id"></id>
+            <id column="role_name" property="roleName"></id>
+            <id column="role_desc" property="roleDesc"></id>
+        </collection>
+    </resultMap>
+
+    <select id="findUserAllRole" resultMap="userRole">
+        select u.*,r.*,r.id rid from `user` u left join user_role ur on ur.user_id = u.id left join role r on ur.role_id = r.id
+    </select>
+
+
+</mapper>

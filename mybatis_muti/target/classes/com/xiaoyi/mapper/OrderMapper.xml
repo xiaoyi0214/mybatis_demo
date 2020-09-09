@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyi.dao.OrderMapper">
+
+    <!-- 1 to 1 配置:
+            1、手动指定字段映射
+                column : SQL查出来的字段名
+                property ：实体属性名
+
+
+    -->
+    <resultMap id="orderMap" type="order">
+        <id column="id" property="id"></id>
+        <result column="order_no" property="orderNo"></result>
+        <result column="price" property="price"></result>
+<!--        <result column="user" property="user.id"></result>
+        <result column="username" property="user.username"></result>
+        <result column="password" property="user.password"></result>-->
+
+        <!-- association ： 连接另一实体
+                property : 当前实体（order）中的属性名称（private User user）
+                javaType ：当前实体中属性的类型
+        -->
+        <association property="user" javaType="user">
+            <id column="user" property="id"></id>
+            <result column="username" property="username"></result>
+            <result column="password" property="password"></result>
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="orderMap">
+        select o.*,u.username,u.password from `order` o left join `user` u on o.user = u.id
+    </select>
+
+
+
+</mapper>
