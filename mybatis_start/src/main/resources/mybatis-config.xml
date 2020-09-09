@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+    <!-- 加载外部属性文件 -->
+    <properties resource="jdbc.properties"></properties>
+
+    <!--自定义别名
+            mybatis 中给常用类型初始化了别名，比如java.long.String 在mapper文件中的 resultType、parameterType中 可 ="string"
+    -->
+    <typeAliases>
+        <typeAlias type="com.xiaoyi.domain.User" alias="user"></typeAlias>
+    </typeAliases>
+
+    <!--数据源环境-->
+    <environments default="dev"> <!--指定默认环境id-->
+        <environment id="dev">
+            <!-- 事务管理类型：
+                        1、JDBC 直接使用JDBC提交和回滚设置，依赖于从数据源得到的连接来管理事务作用域
+                        2、MANAGED 不提交或者回滚连接，让容器（如JEE应用服务器的上下文）来管理整个事务的生命周期，默认情况下关闭连接，可以通过closeConnection 属性 false 关闭默认行为
+            -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- 指定数据源类型是连接池
+                        1、UNPOOLED ： 每次请求是打开和关闭连接
+                        2、POOLED ： 利用池的概念将JDBC连接对象组织起来
+                        3、JNDI ： 为了能在EJB或应用类服务器 容器内使用，容器可以集中或在外部配置数据源，然后放置一个JNDI上下文的引用
+             -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--加载映射文件
+            mapper ：
+                1、resource ： 相对于类路径的资源引用
+                2、url ： 资源全路径
+                3、class ：使用映射器接口实现类的完全限定名 （注解）
+            package ： 将包内的映射器接口实现全部注册为映射器（注解） 》》需要开启包扫描？
+    -->
+    <mappers>
+        <mapper resource="com/xiaoyi/mapper/UserMapper.xml"></mapper>
+    </mappers>
+
+
+
+
+</configuration>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper :
+                namespace : 定位  作用 命名空间结合sql的id 进行调用
+
+-->
+<mapper namespace="userMapper">
+    <!-- select ：查询根标签
+                -> id 定位，与namespace组成查询标识
+                -> resultType 查询对应的实体类
+                -> parameterType ： 指定要传入的数据类型
+                -> #{任意字符} 引用传递的单个参数
+    -->
+
+    <!-- typeAlias 中定义别名后 resultType="com.xiaoyi.domain.User" 可替换为 resultType="user"-->
+    <select id="selectAll" resultType="user">
+        select * from user;
+    </select>
+
+    <select id="selectById" resultType="com.xiaoyi.domain.User" parameterType="long">
+        select * from user where id = #{id};
+    </select>
+
+    <!-- insert : 插入根标签
+                    -> parameterType ： 指定要插入的数据类型
+                        #{实体属性名}
+    -->
+    <insert id="save" parameterType="com.xiaoyi.domain.User">
+        insert into user values (#{id},#{username},#{password});
+    </insert>
+
+    <update id="updateById" parameterType="com.xiaoyi.domain.User">
+        update user set username = #{username}, password = #{password} where id = #{id};
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from user where id =     #{id};
+    </delete>
+
+</mapper>
