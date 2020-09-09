@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xiaoyi.dao.UserMapper">
+
+    <!--动态SQL: where 根据传入的是否有条件动态的拼接where语句
+            if ：满足条件拼接标签内语句
+                test 验证条件
+
+            foreach : 遍历传入的集合
+                collection : 传入的集合
+                open ：SQL开始固定值
+                close ：SQL结束固定值
+                item ： 循环取出变量的名称 可自定义
+                separator ：每个变量的分隔符
+                #{id}
+            sql ：将公共部分SQL抽取出来，方便维护
+                id ：用于include导出使用
+
+                _>include : 导入SQL片段
+                    refid ： SQL片段id
+    -->
+    <!--sql抽取-->
+    <sql id="selectAll" >select * from user</sql>
+    <!--if-->
+    <select id="selectByCondition" resultType="user" parameterType="user">
+        <include refid="selectAll"></include>
+        <where>
+            <if test="id!=0">
+                and id = #{id}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="password != null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+    <!--foreach-->
+    <select id="selectByIds" resultType="user" parameterType="list">
+        <include refid="selectAll"></include>
+        <where>
+            <foreach collection="list" open="id in (" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+
+</mapper>

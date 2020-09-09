@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 加载外部属性文件 -->
+    <properties resource="jdbc.properties"></properties>
+
+    <typeAliases>
+        <typeAlias type="com.xiaoyi.domain.User" alias="user"></typeAlias>
+        <typeAlias type="com.xiaoyi.domain.Student" alias="student"></typeAlias>
+    </typeAliases>
+
+    <!--typeHandlers : 类型处理器__>将获取到的值以合适的方式转换成java类型，mybatis中内置了一些类型处理器
+            eg. BooleanTypeHandler、ByteTypeHandler、ShortTypeHandler、IntegerTypeHandler、LongTypeHandler
+        自定义类型转换器：
+            实现TypeHandler接口或继承BAseTypeHandler类
+-->
+    <typeHandlers>
+        <typeHandler handler="com.xiaoyi.handler.DateTypeHandler"></typeHandler>
+    </typeHandlers>
+
+    <!-- plugins: mybatis功能扩展
+            1、使用pageHelper
+
+    -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+            <!--<property name="dialect" value="mysql"/>--><!--SQL方言 : pageHelper 4.0后的版本不用配置方言-->
+        </plugin>
+    </plugins>
+
+    <!--数据源环境-->
+    <environments default="dev"> <!--指定默认环境id-->
+        <environment id="dev">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/xiaoyi/mapper/UserMapper.xml"></mapper>
+        <mapper resource="com/xiaoyi/mapper/StudentMapper.xml"></mapper>
+    </mappers>
+
+
+
+</configuration>
