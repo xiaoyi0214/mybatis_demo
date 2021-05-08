@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public List<User> findUserAllRole();
+    List<User> findUserAllRole();
 
 
 

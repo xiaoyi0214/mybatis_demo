@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 自己实现接口 -->
-<!--<mapper namespace="schoolMapper">
+<!--<dao namespace="schoolMapper">
 
     <select id="selectAll" resultType="school">
         select * from school;
     </select>
 
-</mapper>-->
+</dao>-->
 <!-- 动态代理方式实现 -->
 <!--namespace : 为接口地址！！！-->
 <mapper namespace="com.xiaoyi.dao.SchoolMapper">

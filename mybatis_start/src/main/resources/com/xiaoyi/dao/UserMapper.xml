@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- mapper :
-                namespace : 定位  作用 命名空间结合sql的id 进行调用
-
+<!-- namespace : 定位作用 命名空间结合sql的id 进行调用
+        只使用XML：可为任意不重复的值
+        接口：接口的全限定类名
 -->
 <mapper namespace="userMapper">
+    <!--标签：select、insert、update、delete
+            id：不能包含 .   同一命名空间下不能出现重复id
+                接口方法可以重载，所以接口中可以出现多个同名不同参方法，但是xml中的id不能重复，所以会出现接口中所以同名方法对应一个标签的情况<eg.分页查询>
+    -->
     <!-- select ：查询根标签
                 -> id 定位，与namespace组成查询标识
                 -> resultType 查询对应的实体类
@@ -12,12 +16,19 @@
                 -> #{任意字符} 引用传递的单个参数
     -->
 
-    <!-- typeAlias 中定义别名后 resultType="com.xiaoyi.domain.User" 可替换为 resultType="user"-->
+    <!-- resultType ： 返回类型刚好被java类接收
+                typeAlias 中定义别名后 resultType="com.xiaoyi.domain.User" 可替换为 resultType="user"
+
+         resultMap ： 自定义封装java对象属性和查询结果的映射关系
+     -->
+
+
+
     <select id="selectAll" resultType="user">
         select * from user;
     </select>
 
-    <select id="selectById" resultType="com.xiaoyi.domain.User" parameterType="long">
+    <select id="selectById" resultType="User" parameterType="long">
         select * from user where id = #{id};
     </select>
 
@@ -34,7 +45,7 @@
     </update>
 
     <delete id="deleteById" parameterType="java.lang.Long">
-        delete from user where id =     #{id};
+        delete from user where id = #{id};
     </delete>
 
 </mapper>

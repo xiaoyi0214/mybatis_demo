@@ -28,7 +28,8 @@
     </environments>
 
     <mappers >
-        <mapper resource="com/xiaoyi/mapper/UserMapper.xml"></mapper>
-        <mapper resource="com/xiaoyi/mapper/OrderMapper.xml"></mapper>
+<!--        <dao resource="com/xiaoyi/dao/UserMapper.xml"></dao>
+        <dao resource="com/xiaoyi/dao/OrderMapper.xml"></dao>-->
+        <package name="com.xiaoyi.dao"/>
     </mappers>
 </configuration>

@@ -6,11 +6,22 @@
     <!-- 加载外部属性文件 -->
     <properties resource="jdbc.properties"></properties>
 
+    <settings>
+        <!--配置自动转换java驼峰命名和SQL的下划线-->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+    </settings>
+
     <!--自定义别名
             mybatis 中给常用类型初始化了别名，比如java.long.String 在mapper文件中的 resultType、parameterType中 可 ="string"
+        typeAlias : 单独类配置
+            type ：类权限类名
+            alias：别名
+        package：包维度配置，默认别名为类名，（测试大小写都可以）
+            若出现重复类名可在类前加注解:  @Alias("user3")
     -->
     <typeAliases>
-        <typeAlias type="com.xiaoyi.domain.User" alias="user"></typeAlias>
+<!--        <typeAlias type="com.xiaoyi.domain.User" alias="user"></typeAlias>-->
+        <package name="com.xiaoyi.domain"/>
     </typeAliases>
 
     <!--数据源环境-->
@@ -40,10 +51,15 @@
                 1、resource ： 相对于类路径的资源引用
                 2、url ： 资源全路径
                 3、class ：使用映射器接口实现类的完全限定名 （注解）
-            package ： 将包内的映射器接口实现全部注册为映射器（注解） 》》需要开启包扫描？
+            package ： 将包内的映射器接口实现全部注册为映射器（注解）
+                1、判断接口对应命名空间是否已经存在，如果存在就抛出异常，不存在就继续
+                2、加载接口对应的xml映射文件，将接口的全限定类名转换成路径
+                    com.xiaoyi.dao.SchoolMapper 转换 为 com/xiaoyi/dao/SchoolMapper.xml
+                3、处理接口中的方法
     -->
     <mappers>
-        <mapper resource="com/xiaoyi/mapper/UserMapper.xml"></mapper>
+        <mapper resource="com/xiaoyi/dao/UserMapper.xml"></mapper>
+        <package name="com.xiaoyi.dao"/>
     </mappers>
 
 
