@@ -58,6 +58,7 @@ public class MyBatisTest {
     @Test
     public void testSave() {
         User user = new User();
+        user.setId(2L);
         user.setUsername("王五");
         user.setPassword("123");
 

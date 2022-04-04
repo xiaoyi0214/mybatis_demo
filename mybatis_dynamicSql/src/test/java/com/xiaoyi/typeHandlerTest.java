@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,12 @@ public class typeHandlerTest {
         student.setId(1l);
         student.setName("董OG");
         student.setBirthday(new Date());
+        List<String> strings = new ArrayList<>();
+        strings.add("1");
+        strings.add("2");
 
+
+        student.setList(strings);
         studentMapper.save(student);
 
         sqlSession.commit();

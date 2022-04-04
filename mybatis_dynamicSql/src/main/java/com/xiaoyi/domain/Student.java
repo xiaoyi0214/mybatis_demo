@@ -1,6 +1,7 @@
 package com.xiaoyi.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 小逸 on 2020/9/8.
@@ -12,6 +13,16 @@ public class Student {
     private Long id;
     private String name;
     private Date birthday;
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public void setList(List<String> list) {
+        this.list = list;
+    }
+
+    private List<String> list;
 
     public Long getId() {
         return id;

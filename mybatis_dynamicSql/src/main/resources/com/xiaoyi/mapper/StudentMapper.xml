@@ -4,7 +4,7 @@
 <mapper namespace="com.xiaoyi.dao.StudentMapper">
 
     <insert id="save" parameterType="student">
-        insert into student value (#{id},#{name},#{birthday})
+        insert into student value (#{id},#{name},#{birthday},#{list})
     </insert>
 
     <select id="findAll" resultType="student">
